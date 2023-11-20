@@ -1,5 +1,5 @@
 import {matchRatioRank} from '../number-rank-functions/matchRatioRank';
-import {hasAcronymPredicate} from '../boolean-rank-functions/hasAcronym';
+import {hasAcronym} from '../boolean-rank-functions/hasAcronym';
 import {contains} from '../boolean-rank-functions/contains';
 import {hasPartStartingWith} from '../boolean-rank-functions/hasPartStartingWith';
 import {hasWordStartingWith} from '../boolean-rank-functions/hasWordStartingWith';
@@ -23,6 +23,6 @@ export const generalMatcher = equalMatcher
   .chain(hasWordStartingWith, defaultTransformations)
   .chain(hasPartStartingWith, defaultTransformations)
   .chain(contains, transformationsWithWhitespaceRemoval)
-  .chain(hasAcronymPredicate, defaultTransformations)
+  .chain(hasAcronym, defaultTransformations)
   .chain(matchRatioRank, defaultTransformations)
   .chain(unorderedMatchRatioRank, defaultTransformations);
