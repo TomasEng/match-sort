@@ -1,0 +1,1 @@
+export const DEEP_RANK_STRING_LENGTH_LIMIT = 64; // For values longer than this, the rank will be the same whether it is a full match, acronym match, or full acronym match.

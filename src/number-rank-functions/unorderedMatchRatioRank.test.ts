@@ -38,10 +38,28 @@ describe('unorderedMatchRatioRank', () => {
     const usa = 'usa';
     const usoa = 'usoa';
     const unitedStates = 'united states';
+    const theUnitedStates = 'the united states';
     const unitedStatesAmerica = 'united states america';
     const unitedStatesOfAmerica = 'united states of america';
+    const theUnitedStatesOfAmerica = 'the united states of america';
     const unitedStatesWithDash = 'united-states';
-    const values = [us, usa, usoa, unitedStates, unitedStatesAmerica, unitedStatesOfAmerica, unitedStatesWithDash];
+    const unitedStatesAmericaWithDash = 'united-states-america';
+    const unitedStatesOfAmericaWithDash = 'united-states-of-america';
+    const theUnitedStatesOfAmericaWithDash = 'the-united-states-of-america';
+    const values = [
+      theUnitedStates,
+      theUnitedStatesOfAmerica,
+      theUnitedStatesOfAmericaWithDash,
+      unitedStates,
+      unitedStatesAmerica,
+      unitedStatesAmericaWithDash,
+      unitedStatesOfAmerica,
+      unitedStatesOfAmericaWithDash,
+      unitedStatesWithDash,
+      us,
+      usa,
+      usoa,
+    ];
 
     const search = 'su';
     const rankFunction = unorderedMatchRatioRank(search);
@@ -52,7 +70,20 @@ describe('unorderedMatchRatioRank', () => {
       return numberRank(rankA) - numberRank(rankB);
     });
 
-    const expectedResult = [us, unitedStatesWithDash, unitedStates, usa, unitedStatesAmerica, usoa, unitedStatesOfAmerica];
+    const expectedResult = [
+      us,
+      unitedStatesWithDash,
+      unitedStates,
+      usa,
+      unitedStatesAmericaWithDash,
+      theUnitedStates,
+      unitedStatesAmerica,
+      usoa,
+      unitedStatesOfAmericaWithDash,
+      unitedStatesOfAmerica,
+      theUnitedStatesOfAmericaWithDash,
+      theUnitedStatesOfAmerica,
+    ];
 
     expect(sorted).toEqual(expectedResult);
   });
