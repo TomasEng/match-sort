@@ -12,17 +12,17 @@ import {equals} from '../boolean-rank-functions/equals';
 import {unorderedMatchRatioRank} from '../number-rank-functions/unorderedMatchRatioRank';
 
 const defaultTransformations: StringTransformation[] = ['trim', 'lowercase', 'removeAccents', 'removePunctuation'];
-const transformationsWithWhitespaceRemoval: StringTransformation[] = ['trim', 'lowercase', 'removeAccents', 'removeWhitespace', 'removePunctuation'];
 
-const equalMatcher = new MatchSort(equals, transformationsWithWhitespaceRemoval);
+const matcher = new MatchSort();
 
-export const generalMatcher = equalMatcher
-  .chain(startsWith, transformationsWithWhitespaceRemoval)
+export const generalMatcher = matcher
+  .chain(equals, defaultTransformations)
+  .chain(startsWith, defaultTransformations)
   .chain(hasWord, defaultTransformations)
   .chain(hasPart, defaultTransformations)
   .chain(hasWordStartingWith, defaultTransformations)
   .chain(hasPartStartingWith, defaultTransformations)
-  .chain(contains, transformationsWithWhitespaceRemoval)
+  .chain(contains, defaultTransformations)
   .chain(hasAcronym, defaultTransformations)
   .chain(matchRatioRank, defaultTransformations)
   .chain(unorderedMatchRatioRank, defaultTransformations);

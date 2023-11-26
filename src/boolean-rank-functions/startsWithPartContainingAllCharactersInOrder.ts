@@ -1,6 +1,6 @@
 import {MatchPredicate} from '../types/MatchPredicate';
 import {containsAllCharactersInOrder} from './containsAllCharactersInOrder';
-import {splitInParts} from '../utils/string-utils/splitInParts';
+import {splitInParts} from '../utils/splitInParts';
 
 export const startsWithPartContainingAllCharactersInOrder: MatchPredicate = search => text => {
   if (!search) return true;

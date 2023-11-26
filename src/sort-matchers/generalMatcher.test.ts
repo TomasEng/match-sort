@@ -31,7 +31,7 @@ describe('generalMatcher', () => {
     expect(result.slice(0, expectedResultStart.length)).toEqual(expectedResultStart);
   });
 
-  it('Ignores accents and punctuation', () => {
+  it('Ignores accents and special symbols', () => {
     const result = generalMatcher.sort('cote divoire', iso3166countries);
     const expectedResultStart = ['Côte d\'Ivoire'];
     expect(result.slice(0, expectedResultStart.length)).toEqual(expectedResultStart);
