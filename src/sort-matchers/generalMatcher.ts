@@ -10,6 +10,7 @@ import {StringTransformation} from '../types/StringTransformation';
 import {MatchSort} from '../classes/MatchSort';
 import {equals} from '../boolean-rank-functions/equals';
 import {unorderedMatchRatioRank} from '../number-rank-functions/unorderedMatchRatioRank';
+import {containsAllCharacters} from '../boolean-rank-functions/containsAllCharacters';
 
 const defaultTransformations: StringTransformation[] = ['trim', 'lowercase', 'removeAccents', 'removePunctuation'];
 
@@ -25,4 +26,5 @@ export const generalMatcher = matcher
   .chain(contains, defaultTransformations)
   .chain(hasAcronym, defaultTransformations)
   .chain(matchRatioRank, defaultTransformations)
-  .chain(unorderedMatchRatioRank, defaultTransformations);
+  .chain(unorderedMatchRatioRank, defaultTransformations)
+  .setFilter(containsAllCharacters, defaultTransformations);

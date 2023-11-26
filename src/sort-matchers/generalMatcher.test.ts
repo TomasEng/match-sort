@@ -42,4 +42,9 @@ describe('generalMatcher', () => {
     const expectedResultStart = ['Norway'];
     expect(result.slice(0, expectedResultStart.length)).toEqual(expectedResultStart);
   });
+
+  it('Returns the array unchanged when no search is given', () => {
+    const result = generalMatcher.sort('', iso3166countries);
+    expect(result).toEqual(iso3166countries);
+  });
 });
