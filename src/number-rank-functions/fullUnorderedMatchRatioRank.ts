@@ -1,7 +1,7 @@
 import {MatchRankFunction} from '../types/MatchRankFunction';
-import {containsAllCharacters} from '../boolean-rank-functions/containsAllCharacters';
+import {StringMatchPredicate} from '../static-classes/StringMatchPredicate';
 
 export const fullUnorderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
-  if (!containsAllCharacters(search)(value)) return 1;
+  if (!StringMatchPredicate.containsAllCharacters(search)(value)) return 1;
   else return 1 - (search.length / value.length);
 };
