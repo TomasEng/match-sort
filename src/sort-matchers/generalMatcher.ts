@@ -11,17 +11,15 @@ const defaultTransformations: StringTransformationFunction[] = [
   StringTransform.removePunctuation
 ];
 
-const matcher = new MatchSort();
-
-export const generalMatcher = matcher
-  .chain(StringMatchPredicate.equals, defaultTransformations)
-  .chain(StringMatchPredicate.startsWith, defaultTransformations)
-  .chain(StringMatchPredicate.hasWord, defaultTransformations)
-  .chain(StringMatchPredicate.hasPart, defaultTransformations)
-  .chain(StringMatchPredicate.hasWordStartingWith, defaultTransformations)
-  .chain(StringMatchPredicate.hasPartStartingWith, defaultTransformations)
-  .chain(StringMatchPredicate.contains, defaultTransformations)
-  .chain(StringMatchPredicate.hasAcronym, defaultTransformations)
-  .chain(StringMatchRank.orderedMatchRatioRank, defaultTransformations)
-  .chain(StringMatchRank.unorderedMatchRatioRank, defaultTransformations)
-  .setFilter(StringMatchPredicate.containsAllCharacters, defaultTransformations);
+export const generalMatcher = new MatchSort(defaultTransformations)
+  .chain(StringMatchPredicate.equals)
+  .chain(StringMatchPredicate.startsWith)
+  .chain(StringMatchPredicate.hasWord)
+  .chain(StringMatchPredicate.hasPart)
+  .chain(StringMatchPredicate.hasWordStartingWith)
+  .chain(StringMatchPredicate.hasPartStartingWith)
+  .chain(StringMatchPredicate.contains)
+  .chain(StringMatchPredicate.hasAcronym)
+  .chain(StringMatchRank.orderedMatchRatioRank)
+  .chain(StringMatchRank.unorderedMatchRatioRank)
+  .setFilter(StringMatchPredicate.containsAllCharacters);

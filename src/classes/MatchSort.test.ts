@@ -31,7 +31,7 @@ const replaceGreekLowercaseLetters = (value: string) => value
 
 describe('MatchSort', () => {
   const exactMatch: MatchRankFunction = (search: string) => (value: string) => search === value;
-  const exactMatchSorter = new MatchSort(exactMatch);
+  const exactMatchSorter = MatchSort.from(exactMatch);
   const array = ['ABC', 'abc', 'DEF', 'def', 'GHI', 'ghi'];
 
   describe('makeSorter', () => {
@@ -50,7 +50,7 @@ describe('MatchSort', () => {
 
   test('transformations', () => {
     const array = () => ['ABC', 'abc', 'ΔΕΦ', 'DEF', 'δεφ', 'def', 'GHI', 'ghi'];
-    const sorter = new MatchSort(exactMatch, [StringTransform.lowercase, replaceGreekLowercaseLetters]);
+    const sorter = MatchSort.from(exactMatch, [StringTransform.lowercase, replaceGreekLowercaseLetters]);
     const greekResult = sorter.sort('δεφ', array());
     const latinResult = sorter.sort('def', array());
     const greekUpperResult = sorter.sort('ΔΕΦ', array());
@@ -59,5 +59,15 @@ describe('MatchSort', () => {
     expect(latinResult).toEqual(['def', 'DEF', 'ΔΕΦ', 'δεφ', 'ABC', 'abc', 'GHI', 'ghi']);
     expect(greekUpperResult).toEqual(['ΔΕΦ', 'δεφ', 'DEF', 'def', 'ABC', 'abc', 'GHI', 'ghi']);
     expect(latinUpperResult).toEqual(['DEF', 'def', 'ΔΕΦ', 'δεφ', 'ABC', 'abc', 'GHI', 'ghi']);
+  });
+
+  it('Applies default transformations if no transformations are given', () => {
+    const array = () => ['ABC', 'abc', 'ΔΕΦ', 'DEF', 'δεφ', 'def', 'GHI', 'ghi'];
+    const sorter = new MatchSort([StringTransform.lowercase, replaceGreekLowercaseLetters]);
+    sorter.chain(exactMatch);
+    const greekResult = sorter.sort('δεφ', array());
+    const latinResult = sorter.sort('def', array());
+    expect(greekResult).toEqual(['δεφ', 'ΔΕΦ', 'DEF', 'def', 'ABC', 'abc', 'GHI', 'ghi']);
+    expect(latinResult).toEqual(['def', 'DEF', 'ΔΕΦ', 'δεφ', 'ABC', 'abc', 'GHI', 'ghi']);
   });
 });
