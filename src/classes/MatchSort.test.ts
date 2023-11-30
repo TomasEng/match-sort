@@ -1,5 +1,6 @@
 import {MatchRankFunction} from '../types/MatchRankFunction';
 import {MatchSort} from './MatchSort';
+import {StringTransform} from '../static-classes/StringTransform';
 
 const replaceGreekLowercaseLetters = (value: string) => value
   .replace('α', 'a')
@@ -49,7 +50,7 @@ describe('MatchSort', () => {
 
   test('transformations', () => {
     const array = () => ['ABC', 'abc', 'ΔΕΦ', 'DEF', 'δεφ', 'def', 'GHI', 'ghi'];
-    const sorter = new MatchSort(exactMatch, ['lowercase', replaceGreekLowercaseLetters]);
+    const sorter = new MatchSort(exactMatch, [StringTransform.lowercase, replaceGreekLowercaseLetters]);
     const greekResult = sorter.sort('δεφ', array());
     const latinResult = sorter.sort('def', array());
     const greekUpperResult = sorter.sort('ΔΕΦ', array());

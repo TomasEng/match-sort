@@ -1,10 +1,15 @@
-import {matchRatioRank} from '../number-rank-functions/matchRatioRank';
-import {StringTransformation} from '../types/StringTransformation';
 import {MatchSort} from '../classes/MatchSort';
-import {unorderedMatchRatioRank} from '../number-rank-functions/unorderedMatchRatioRank';
 import {StringMatchPredicate} from '../static-classes/StringMatchPredicate';
+import {StringTransform} from '../static-classes/StringTransform';
+import {StringTransformationFunction} from '../types/StringTransformationFunction';
+import {StringMatchRank} from '../static-classes/StringMatchRank';
 
-const defaultTransformations: StringTransformation[] = ['trim', 'lowercase', 'removeAccents', 'removePunctuation'];
+const defaultTransformations: StringTransformationFunction[] = [
+  StringTransform.trim,
+  StringTransform.lowercase,
+  StringTransform.removeAccents,
+  StringTransform.removePunctuation
+];
 
 const matcher = new MatchSort();
 
@@ -17,6 +22,6 @@ export const generalMatcher = matcher
   .chain(StringMatchPredicate.hasPartStartingWith, defaultTransformations)
   .chain(StringMatchPredicate.contains, defaultTransformations)
   .chain(StringMatchPredicate.hasAcronym, defaultTransformations)
-  .chain(matchRatioRank, defaultTransformations)
-  .chain(unorderedMatchRatioRank, defaultTransformations)
+  .chain(StringMatchRank.orderedMatchRatioRank, defaultTransformations)
+  .chain(StringMatchRank.unorderedMatchRatioRank, defaultTransformations)
   .setFilter(StringMatchPredicate.containsAllCharacters, defaultTransformations);

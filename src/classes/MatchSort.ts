@@ -1,12 +1,11 @@
 import {MatchRankFunction} from '../types/MatchRankFunction';
 import {RankSort} from './RankSort';
-import {StringTransformation} from '../types/StringTransformation';
-import {createTransformation} from '../transformations/createTransformation';
 import {RankFunction} from '../types/RankFunction';
 import {IndexedStringTransform} from './IndexedStringTransform';
 import {SearchListIndex} from './SearchListIndex';
 import {BooleanMatchFunction} from '../types/BooleanMatchFunction';
 import {SearchFunction} from '../types/SearchFunction';
+import {StringTransformationFunction} from '../types/StringTransformationFunction';
 
 export class MatchSort {
 
@@ -17,7 +16,7 @@ export class MatchSort {
 
   constructor(
     exactRankFunction?: MatchRankFunction,
-    transformations: StringTransformation[] = [],
+    transformations: StringTransformationFunction[] = [],
   ) {
     this.indexedStringTransform = new IndexedStringTransform();
     this.matchRankFunctionList = [];
@@ -30,18 +29,16 @@ export class MatchSort {
     return this.makeSorter(search).sort(filteredValues);
   }
 
-  public chain(exactRankFunction: MatchRankFunction, transformations: StringTransformation[] = []): MatchSort {
-    const transformFunctions = transformations.map(createTransformation);
-    const newRankFunction = this.indexedStringTransform.matchRankWithTransformations(exactRankFunction, transformFunctions);
+  public chain(exactRankFunction: MatchRankFunction, transformations: StringTransformationFunction[] = []): MatchSort {
+    const newRankFunction = this.indexedStringTransform.matchRankWithTransformations(exactRankFunction, transformations);
     this.matchRankFunctionList.push(newRankFunction);
     return this;
   }
 
-  public setFilter(filter: BooleanMatchFunction, transformations: StringTransformation[] = []): MatchSort {
+  public setFilter(filter: BooleanMatchFunction, transformations: StringTransformationFunction[] = []): MatchSort {
     this.filter = (search: string) => (value: string) => {
-      const transformFunctions = transformations.map(createTransformation);
-      const transformedSearch = this.indexedStringTransform.runMultiple(search, transformFunctions);
-      const transformedValue = this.indexedStringTransform.runMultiple(value, transformFunctions);
+      const transformedSearch = this.indexedStringTransform.runMultiple(search, transformations);
+      const transformedValue = this.indexedStringTransform.runMultiple(value, transformations);
       return filter(transformedSearch)(transformedValue);
     };
     return this;
