@@ -11,7 +11,7 @@ const defaultTransformations: StringTransformationFunction[] = [
   StringTransform.removePunctuation
 ];
 
-export const generalMatcher = new MatchSort(defaultTransformations)
+export const generalTextMatcher = new MatchSort(defaultTransformations)
   .chain(StringMatchPredicate.equals)
   .chain(StringMatchPredicate.startsWith)
   .chain(StringMatchPredicate.hasWord)

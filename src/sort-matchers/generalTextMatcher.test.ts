@@ -1,9 +1,9 @@
-import {generalMatcher} from './generalMatcher';
+import {generalTextMatcher} from './generalTextMatcher';
 import {iso3166countries} from '../test-data/countries';
 
-describe('generalMatcher', () => {
+describe('generalTextMatcher', () => {
   it('Sorts strings as expected', () => {
-    const result = generalMatcher.sort('nor', iso3166countries);
+    const result = generalTextMatcher.sort('nor', iso3166countries);
     const expectedResultStart = [
       'Norway', // Starts with 'nor'
       'Norfolk Island', // Starts with 'nor'
@@ -22,7 +22,7 @@ describe('generalMatcher', () => {
   });
 
   it('Sorts acronyms as expected', () => {
-    const result = generalMatcher.sort('USA', iso3166countries);
+    const result = generalTextMatcher.sort('USA', iso3166countries);
     const expectedResultStart = [
       'United States Of America (the)',
       'Austria',
@@ -32,19 +32,19 @@ describe('generalMatcher', () => {
   });
 
   it('Ignores accents and special symbols', () => {
-    const result = generalMatcher.sort('cote divoire', iso3166countries);
+    const result = generalTextMatcher.sort('cote divoire', iso3166countries);
     const expectedResultStart = ['Côte d\'Ivoire'];
     expect(result.slice(0, expectedResultStart.length)).toEqual(expectedResultStart);
   });
 
   it('Hits when characters are in the wrong order', () => {
-    const result = generalMatcher.sort('nowray', iso3166countries);
+    const result = generalTextMatcher.sort('nowray', iso3166countries);
     const expectedResultStart = ['Norway'];
     expect(result.slice(0, expectedResultStart.length)).toEqual(expectedResultStart);
   });
 
   it('Returns the array unchanged when no search is given', () => {
-    const result = generalMatcher.sort('', iso3166countries);
+    const result = generalTextMatcher.sort('', iso3166countries);
     expect(result).toEqual(iso3166countries);
   });
 });
