@@ -7,7 +7,7 @@ describe('StringMatchRank', () => {
       expect(StringMatchRank.orderedMatchRatioRank('abc')('abc')).toBe(0);
     });
 
-    it('Returns a better rank if the match is exact than if the acronym match is exact', () => {
+    it('Returns a better rank if the match is exact than if the wordAcronym match is exact', () => {
       const search = 'abc';
       const acronymMatch = 'ad bd cd';
       const exactRank = StringMatchRank.orderedMatchRatioRank(search)(search);
@@ -15,7 +15,7 @@ describe('StringMatchRank', () => {
       expect(numberRank(exactRank)).toBeLessThan(numberRank(acronymRank));
     });
 
-    it('Returns a better rank for a value of which the acronym matches best and better than a value of which the full match matches best', () => {
+    it('Returns a better rank for a value of which the wordAcronym matches best and better than a value of which the full match matches best', () => {
       const search = 'abc';
       const acronymMatch = 'ad bd cd dd';
       const fullMatch = 'abcde';
@@ -24,7 +24,7 @@ describe('StringMatchRank', () => {
       expect(numberRank(acronymRank)).toBeLessThan(numberRank(fullMatchRank));
     });
 
-    it('Returns a better rank for a value of which the full match matches best and better than a value of which the acronym matches best', () => {
+    it('Returns a better rank for a value of which the full match matches best and better than a value of which the wordAcronym matches best', () => {
       const search = 'abc';
       const acronymMatch = 'ad bd cd dd ed';
       const fullMatch = 'abcd';
@@ -112,7 +112,7 @@ describe('StringMatchRank', () => {
       expect(StringMatchRank.unorderedMatchRatioRank('abc')('cba')).toBe(0);
     });
 
-    it('Returns a better rank if the match is exact than if the acronym match is exact', () => {
+    it('Returns a better rank if the match is exact than if the wordAcronym match is exact', () => {
       const search = 'abc';
       const exactMatch = 'cba';
       const acronymMatch = 'cd bd ad';
@@ -121,7 +121,7 @@ describe('StringMatchRank', () => {
       expect(numberRank(exactRank)).toBeLessThan(numberRank(acronymRank));
     });
 
-    it('Returns a better rank for a value of which the acronym matches best and better than a value of which the full match matches best', () => {
+    it('Returns a better rank for a value of which the wordAcronym matches best and better than a value of which the full match matches best', () => {
       const search = 'abc';
       const acronymMatch = 'dd cd bd ad';
       const fullMatch = 'edcba';
@@ -130,7 +130,7 @@ describe('StringMatchRank', () => {
       expect(numberRank(acronymRank)).toBeLessThan(numberRank(fullMatchRank));
     });
 
-    it('Returns a better rank for a value of which the full match matches best and better than a value of which the acronym matches best', () => {
+    it('Returns a better rank for a value of which the full match matches best and better than a value of which the wordAcronym matches best', () => {
       const search = 'abc';
       const acronymMatch = 'ed dd cd bd ad';
       const fullMatch = 'dcba';

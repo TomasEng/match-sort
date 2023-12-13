@@ -1,8 +1,9 @@
 import {MatchSort} from '../classes/MatchSort';
-import {StringMatchPredicate} from '../static-classes/StringMatchPredicate';
+import {StringMatchPredicates} from '../static-classes/StringMatchPredicates';
 import {StringTransform} from '../static-classes/StringTransform';
 import {StringTransformationFunction} from '../types/StringTransformationFunction';
 import {StringMatchRank} from '../static-classes/StringMatchRank';
+import {StringMatchPredicateBuilders} from '../static-classes/StringMatchPredicateBuilders';
 
 const defaultTransformations: StringTransformationFunction[] = [
   StringTransform.trim,
@@ -12,14 +13,14 @@ const defaultTransformations: StringTransformationFunction[] = [
 ];
 
 export const generalTextMatcher = new MatchSort(defaultTransformations)
-  .chain(StringMatchPredicate.equals)
-  .chain(StringMatchPredicate.startsWith)
-  .chain(StringMatchPredicate.hasWord)
-  .chain(StringMatchPredicate.hasPart)
-  .chain(StringMatchPredicate.hasWordStartingWith)
-  .chain(StringMatchPredicate.hasPartStartingWith)
-  .chain(StringMatchPredicate.contains)
-  .chain(StringMatchPredicate.hasAcronym)
+  .chain(StringMatchPredicates.equals)
+  .chain(StringMatchPredicates.startsWith)
+  .chain(StringMatchPredicates.hasWord)
+  .chain(StringMatchPredicates.hasPart)
+  .chain(StringMatchPredicateBuilders.someWord(StringMatchPredicates.startsWith))
+  .chain(StringMatchPredicateBuilders.somePart(StringMatchPredicates.startsWith))
+  .chain(StringMatchPredicates.contains)
+  .chain(StringMatchPredicates.hasAcronym)
   .chain(StringMatchRank.orderedMatchRatioRank)
   .chain(StringMatchRank.unorderedMatchRatioRank)
-  .setFilter(StringMatchPredicate.containsAllCharacters);
+  .setFilter(StringMatchPredicates.containsAllCharacters);

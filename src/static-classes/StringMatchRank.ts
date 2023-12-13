@@ -1,6 +1,6 @@
 import {MatchRankFunction} from '../types/MatchRankFunction';
-import {StringMatchPredicate} from './StringMatchPredicate';
-import {acronym} from '../utils/acronym';
+import {StringMatchPredicates} from './StringMatchPredicates';
+import {wordAcronym} from '../utils/wordAcronym';
 import {fullAcronym} from '../utils/fullAcronym';
 import {DEEP_RANK_STRING_LENGTH_LIMIT} from '../constants';
 import {numberRank} from '../utils/numberRank';
@@ -21,7 +21,7 @@ export class StringMatchRank {
   };
 
   public static fullStringOrderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
-    if (!StringMatchPredicate.containsAllCharactersInOrder(search)(value)) return 1;
+    if (!StringMatchPredicates.containsAllCharactersInOrder(search)(value)) return 1;
     else return 1 - (search.length / value.length);
   };
 
@@ -31,8 +31,8 @@ export class StringMatchRank {
   };
 
   public static acronymOrderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
-    const wordAcronym = acronym(value);
-    return this.fullStringOrderedMatchRatioRank(search)(wordAcronym);
+    const acronym = wordAcronym(value);
+    return this.fullStringOrderedMatchRatioRank(search)(acronym);
   };
 
   public static unorderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
@@ -49,7 +49,7 @@ export class StringMatchRank {
   };
 
   public static fullStringUnorderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
-    if (!StringMatchPredicate.containsAllCharacters(search)(value)) return 1;
+    if (!StringMatchPredicates.containsAllCharacters(search)(value)) return 1;
     else return 1 - (search.length / value.length);
   };
 
@@ -59,7 +59,7 @@ export class StringMatchRank {
   };
 
   public static acronymUnorderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
-    const wordAcronym = acronym(value);
-    return this.fullStringUnorderedMatchRatioRank(search)(wordAcronym);
+    const acronym = wordAcronym(value);
+    return this.fullStringUnorderedMatchRatioRank(search)(acronym);
   };
 }

@@ -1,3 +1,3 @@
 import {SimplePredicate} from './SimplePredicate';
 
-export type MatchPredicate = (search: string) => SimplePredicate<string>;
+export type MatchPredicate<T> = (search: string) => SimplePredicate<T>;
