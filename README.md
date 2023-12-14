@@ -102,7 +102,7 @@ import {MatchSort, StringMatchPredicates, StringTransform} from 'match-sort';
 const rank = () => (value: string) => value.length;
 
 const filterMatcher = new MatchSort(transformFunctionList)
-  .chain(StringMatchPredicates)
+  .chain(StringMatchPredicates.startsWith)
   .chain(rank)
   .setFilter(StringMatchPredicates.contains);
 ```
