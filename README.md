@@ -132,7 +132,7 @@ const planets = [
 ];
 
 const searchTerm = 'sa';
-const sortedData = generalTextMatcher.sort(searchTerm, planets);
+const sortedData = generalTextMatcher.onProperty('name').sort(searchTerm, planets);
 ```
 
 # `StringMatchSort` vs. `MatchSort<string>`
