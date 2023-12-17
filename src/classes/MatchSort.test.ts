@@ -3,7 +3,7 @@ import {MatchSort} from './MatchSort';
 
 describe('MatchSort', () => {
   const match: MatchRankFunction<string> = (search: string) => (value: string) => search === value;
-  const filter = () => (value: string) => value !== 'ghi';
+  const filter = () => (value: string) => value !== 'ghi' && value !== '6';
   const matchSorter = new MatchSort<string>().chain(match).setFilter(filter);
   const array = ['ABC', 'abc', 'DEF', 'def', 'GHI', 'ghi'];
 
@@ -39,6 +39,28 @@ describe('MatchSort', () => {
         {id: '2', name: 'abc'},
         {id: '3', name: 'DEF'},
         {id: '5', name: 'GHI'},
+      ]);
+    });
+  });
+
+  describe('onList', () => {
+    it('Creates a new MatchSort that applies the match function to the items of the list', () => {
+      const array = [
+        ['1', 'ABC'],
+        ['2', 'abc'],
+        ['3', 'DEF'],
+        ['4', 'def'],
+        ['5', 'GHI'],
+        ['6', 'ghi'],
+      ];
+      const sorter = matchSorter.onList();
+      const result = sorter.sort('def', array);
+      expect(result).toEqual([
+        ['4', 'def'],
+        ['1', 'ABC'],
+        ['2', 'abc'],
+        ['3', 'DEF'],
+        ['5', 'GHI'],
       ]);
     });
   });

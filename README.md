@@ -135,6 +135,64 @@ const searchTerm = 'sa';
 const sortedData = generalTextMatcher.onProperty('name').sort(searchTerm, planets);
 ```
 
+# Sorting by keyword lists
+Sometimes, it is necessary to sort by a list of keywords, rather than a single search term.
+Therefore, the sort objects also have an `onList` method that returns a `MatchSort` object that sorts by the given list of keywords.
+The ranking will then be made by the best matching keyword of each item, and only items where none of the keywords match the filter will be filtered out.
+
+Here is an example of how this can be done using the `generalTextMatcher` object:
+
+```typescript
+import {generalTextMatcher} from 'match-sort';
+
+const planets = [
+  ['Mercury', 'Mercurius'],
+  ['Venus'],
+  ['Earth', 'Terra', 'Tellus', 'Gaia'],
+  ['Mars'],
+  ['Jupiter'],
+  ['Saturn'],
+  ['Uranus'],
+  ['Neptune', 'Neptun'],
+];
+
+const searchTerm = 'sa';
+const sortedData = generalTextMatcher.onList().sort(searchTerm, planets);
+```
+
+# Chaining `MatchSort` objects
+Both of the previous examples may be combined to a MatchSort object that sorts objects like this:
+
+```typescript
+const earth = {
+  name: 'Earth',
+  distance: 1,
+  keywords: ['Earth', 'Terra', 'Tellus', 'Gaia'],
+}
+```
+
+This can simply be accomplished by chaining `onList` and `onProperty` together:
+```typescript
+import {generalTextMatcher} from 'match-sort';
+
+const planets = [
+  { name: 'Mercury', distance: 0.39, keywords: ['Mercury', 'Mercurius'] },
+  { name: 'Venus', distance: 0.72, keywords: ['Venus'] },
+  { name: 'Earth', distance: 1, keywords: ['Earth', 'Terra', 'Tellus', 'Gaia'] },
+  { name: 'Mars', distance: 1.52, keywords: ['Mars'] },
+  { name: 'Jupiter', distance: 5.20, keywords: ['Jupiter'] },
+  { name: 'Saturn', distance: 9.58, keywords: ['Saturn'] },
+  { name: 'Uranus', distance: 19.20, keywords: ['Uranus'] },
+  { name: 'Neptune', distance: 30.05, keywords: ['Neptune', 'Neptun'] },
+];
+
+const searchTerm = 'sa';
+const sortedData = generalTextMatcher
+  .onList()
+  .onProperty('keywords')
+  .sort(searchTerm, planets);
+```
+
 # `StringMatchSort` vs. `MatchSort<string>`
 Although `StringMatchSort` is simply an extension of `MatchSort<string>`,
 the already mentioned string transformation features are only available on `StringMatchSort`.

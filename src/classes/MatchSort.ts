@@ -4,6 +4,7 @@ import {RankFunction} from '../types/RankFunction';
 import {SearchListIndex} from './SearchListIndex';
 import {BooleanMatchFunction} from '../types/BooleanMatchFunction';
 import {SearchFunction} from '../types/SearchFunction';
+import {listRankFunction} from '../utils/listRankFunction';
 
 export class MatchSort<T> {
 
@@ -56,6 +57,21 @@ export class MatchSort<T> {
       .map(convertRankFunction);
     newMatcher.setMatchRankFunctionList(newRankFunctions);
     const newFilter = (search: string) => (value: O) => this.filter(search)(value[property]);
+    newMatcher.setFilter(newFilter);
+    return newMatcher;
+  }
+
+  public onList(): MatchSort<T[]> {
+    const newMatcher = new MatchSort<T[]>();
+    const convertRankFunction = (matchRankFunction: MatchRankFunction<T>) => (search: string) => {
+      const rankFunction = matchRankFunction(search);
+      return listRankFunction(rankFunction);
+    };
+    const newRankFunctions = this
+      .matchRankFunctionList
+      .map(convertRankFunction);
+    newMatcher.setMatchRankFunctionList(newRankFunctions);
+    const newFilter = (search: string) => (values: T[]) => values.some(this.filter(search));
     newMatcher.setFilter(newFilter);
     return newMatcher;
   }
