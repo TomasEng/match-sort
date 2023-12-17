@@ -4,6 +4,7 @@ import {StringTransform} from '../static-classes/StringTransform';
 import {StringTransformationFunction} from '../types/StringTransformationFunction';
 import {StringMatchRank} from '../static-classes/StringMatchRank';
 import {StringMatchPredicateBuilders} from '../static-classes/StringMatchPredicateBuilders';
+import {StringMatchSort} from '../classes/StringMatchSort';
 
 const defaultTransformations: StringTransformationFunction[] = [
   StringTransform.trim,
@@ -12,7 +13,7 @@ const defaultTransformations: StringTransformationFunction[] = [
   StringTransform.removePunctuation
 ];
 
-export const generalTextMatcher = new MatchSort(defaultTransformations)
+export const generalTextMatcher = new StringMatchSort(defaultTransformations)
   .chain(StringMatchPredicates.equals)
   .chain(StringMatchPredicates.startsWith)
   .chain(StringMatchPredicates.hasWord)

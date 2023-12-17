@@ -6,7 +6,7 @@ describe('SearchListIndex', () => {
     const array1 = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     const array2 = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
-    const searchFunction: SearchFunction = (search: string, values: string[]) =>
+    const searchFunction: SearchFunction<string> = (search: string, values: string[]) =>
       values.filter((value) => value.includes(search));
 
     it('Returns the correct result', () => {

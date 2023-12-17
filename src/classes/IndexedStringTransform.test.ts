@@ -82,7 +82,7 @@ describe('IndexedStringTransform', () => {
   });
 
   describe('matchRankWithTransformations', () => {
-    const testFunction: MatchRankFunction = (search: string) => (value: string) => search === value;
+    const testFunction: MatchRankFunction<string> = (search: string) => (value: string) => search === value;
     const transform1 = (input: string) => input.toLowerCase();
     const transform2 = (input: string) => input.replace('oa', 'e');
     const transformations = [transform1, transform2];

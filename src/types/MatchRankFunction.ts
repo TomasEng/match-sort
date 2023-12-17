@@ -1,3 +1,3 @@
 import {RankFunction} from './RankFunction';
 
-export type MatchRankFunction = (value: string) => RankFunction<string>;
+export type MatchRankFunction<T> = (value: string) => RankFunction<T>;

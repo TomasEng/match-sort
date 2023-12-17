@@ -1,1 +1,1 @@
-export type SearchFunction = (search: string, values: string[]) => string[];
+export type SearchFunction<T> = (search: string, values: T[]) => T[];

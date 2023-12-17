@@ -44,7 +44,15 @@ export class IndexedStringTransform {
     return transformations.reduce((previousValue, transform) => this.run(previousValue, transform), input);
   }
 
-  public matchRankWithTransformations(matchRankFunction: MatchRankFunction, transformations: StringTransformationFunction[]): MatchRankFunction {
+  public runOnProperty<P extends string, O extends { [key in P]: string }>(object: O, property: P, transformation: StringTransformationFunction): string {
+    return this.run(object[property], transformation);
+  }
+
+  public runMultipleOnProperty<P extends string, O extends { [key in P]: string }>(object: O, property: P, transformations: StringTransformationFunction[]): string {
+    return this.runMultiple(object[property], transformations);
+  }
+
+  public matchRankWithTransformations(matchRankFunction: MatchRankFunction<string>, transformations: StringTransformationFunction[]): MatchRankFunction<string> {
     return (search: string) => (value: string) => {
       let rank = numberRank(matchRankFunction(search)(value));
       if (rank === 0) return 0;

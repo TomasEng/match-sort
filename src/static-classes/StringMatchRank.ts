@@ -7,7 +7,7 @@ import {numberRank} from '../utils/numberRank';
 
 export class StringMatchRank {
 
-  public static orderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
+  public static orderedMatchRatioRank: MatchRankFunction<string> = (search) => (value) => {
     if (search.length > value.length) return false;
     const smallestUnit = 1 / DEEP_RANK_STRING_LENGTH_LIMIT;
     const fullRank = numberRank(this.fullStringOrderedMatchRatioRank(search)(value));
@@ -20,22 +20,22 @@ export class StringMatchRank {
     return rank;
   };
 
-  public static fullStringOrderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
+  public static fullStringOrderedMatchRatioRank: MatchRankFunction<string> = (search) => (value) => {
     if (!StringMatchPredicates.containsAllCharactersInOrder(search)(value)) return 1;
     else return 1 - (search.length / value.length);
   };
 
-  public static fullAcronymOrderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
+  public static fullAcronymOrderedMatchRatioRank: MatchRankFunction<string> = (search) => (value) => {
     const acronym = fullAcronym(value);
     return this.fullStringOrderedMatchRatioRank(search)(acronym);
   };
 
-  public static acronymOrderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
+  public static acronymOrderedMatchRatioRank: MatchRankFunction<string> = (search) => (value) => {
     const acronym = wordAcronym(value);
     return this.fullStringOrderedMatchRatioRank(search)(acronym);
   };
 
-  public static unorderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
+  public static unorderedMatchRatioRank: MatchRankFunction<string> = (search) => (value) => {
     if (search.length > value.length) return false;
     const smallestUnit = 1 / DEEP_RANK_STRING_LENGTH_LIMIT;
     const fullRank = numberRank(this.fullStringUnorderedMatchRatioRank(search)(value));
@@ -48,17 +48,17 @@ export class StringMatchRank {
     return rank;
   };
 
-  public static fullStringUnorderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
+  public static fullStringUnorderedMatchRatioRank: MatchRankFunction<string> = (search) => (value) => {
     if (!StringMatchPredicates.containsAllCharacters(search)(value)) return 1;
     else return 1 - (search.length / value.length);
   };
 
-  public static fullAcronymUnorderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
+  public static fullAcronymUnorderedMatchRatioRank: MatchRankFunction<string> = (search) => (value) => {
     const acronym = fullAcronym(value);
     return this.fullStringUnorderedMatchRatioRank(search)(acronym);
   };
 
-  public static acronymUnorderedMatchRatioRank: MatchRankFunction = (search) => (value) => {
+  public static acronymUnorderedMatchRatioRank: MatchRankFunction<string> = (search) => (value) => {
     const acronym = wordAcronym(value);
     return this.fullStringUnorderedMatchRatioRank(search)(acronym);
   };

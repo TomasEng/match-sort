@@ -26,6 +26,11 @@ export class RankSort<T> {
     return array.sort((a, b) => rankMap.get(a)! - rankMap.get(b)!);
   }
 
+  public onProperty<P extends string, O extends { [key in P]: T }>(property: P): RankSort<O> {
+    const rankFunction = (value: O) => this.rankFunction(value[property]);
+    return new RankSort<O>(rankFunction);
+  }
+
   private rankFunction(value: T): number {
     let rank = 0;
     for (const rankFunction of this.rankFunctionList) {
