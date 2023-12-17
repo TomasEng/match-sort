@@ -1,4 +1,3 @@
-import {MatchSort} from '../classes/MatchSort';
 import {StringMatchPredicates} from '../static-classes/StringMatchPredicates';
 import {StringTransform} from '../static-classes/StringTransform';
 import {StringTransformationFunction} from '../types/StringTransformationFunction';

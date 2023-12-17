@@ -1,10 +1,6 @@
 import {MatchRankFunction} from '../types/MatchRankFunction';
-import {RankSort} from './RankSort';
-import {RankFunction} from '../types/RankFunction';
 import {IndexedStringTransform} from './IndexedStringTransform';
-import {SearchListIndex} from './SearchListIndex';
 import {BooleanMatchFunction} from '../types/BooleanMatchFunction';
-import {SearchFunction} from '../types/SearchFunction';
 import {StringTransformationFunction} from '../types/StringTransformationFunction';
 import {MatchSort} from './MatchSort';
 

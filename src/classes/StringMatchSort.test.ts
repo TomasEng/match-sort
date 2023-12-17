@@ -1,5 +1,4 @@
 import {MatchRankFunction} from '../types/MatchRankFunction';
-import {MatchSort} from './MatchSort';
 import {StringTransform} from '../static-classes/StringTransform';
 import {StringMatchSort} from './StringMatchSort';
 
