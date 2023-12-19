@@ -1,5 +1,10 @@
 import {SearchFunction} from '../types/SearchFunction';
 
+/**
+ * Maps values lists to corresponding SearchListIndexInstance objects.
+ * @see SearchListIndexInstance
+ * @internal
+ */
 export class SearchListIndex<T> {
 
   private readonly index: Map<T[], SearchListIndexInstance<T>> = new Map();
@@ -23,6 +28,10 @@ export class SearchListIndex<T> {
   }
 }
 
+/**
+ * Caches the search result and uses it as the input for the next search if the search term starts with the previous search term.
+ * @internal
+ */
 class SearchListIndexInstance<T> {
 
   private readonly values: T[];
