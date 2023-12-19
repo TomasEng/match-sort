@@ -193,6 +193,12 @@ const sortedData = generalTextMatcher
   .sort(searchTerm, planets);
 ```
 
+# Caching
+This package is built for search interfaces. It is optimized for updating the result list as the user types.
+Therefore, the last search result is cached, and as long as the search term starts with the previous search term,
+the searching will only be performed on the previous result list.
+In consequence, items that are filtered out, will not be included in the next search, unless the search term is shortened or completely changed.
+
 # `StringMatchSort` vs. `MatchSort<string>`
 Although `StringMatchSort` is simply an extension of `MatchSort<string>`,
 the already mentioned string transformation features are only available on `StringMatchSort`.
