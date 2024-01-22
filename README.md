@@ -1,14 +1,20 @@
-# MatchSort
+# Matchsort
 
-MatchSort is a simple library NPM package that provides a fast, precise and customisable way to sort and filter strings by a given search term.
+Matchsort is a simple library NPM package that provides a fast, precise and customisable way to sort and filter strings by a given search term.
 
 ## Installation
-MatchSort can be installed using NPM:
+Matchsort can be installed using NPM:
 ```bash
 npm install match-sort
 ```
 
-## Simple example
+## Examples
+
+### On a website
+See [the Codesandbox example](https://codesandbox.io/p/devbox/match-sort-demo-829xm4?embed=1&file=%2Fsrc%2Fsort.ts%3A7%2C1)
+for a lightweight example of how this package can be implemented on an input field on a website.
+
+### Simple example
 The fastest way to get started is by importing the ready-to-use `generalTextMatcher` object:
 
 ```js
@@ -43,7 +49,7 @@ Mars is sorted before Uranus because the letters of the search term constitute a
 hence "Mars" is considered a better match.
 Words that do not contain all the characters of the search term are not included in the result.
 
-## Custom examples
+### Custom examples
 The `generalTextMatcher` object is built using the `StringMatchSort` class, which can be used to create any kind of functions for sorting and filtering string arrays.
 Let's say we want to create a matcher that simply filters out all strings that do not contain the search term.
 This can be done using the `StringMatchSort` class with a `StringMatchPredicates` filter as follows:
@@ -109,7 +115,7 @@ const filterMatcher = new StringMatchSort(transformFunctionList)
 Now, when we run `filterMatcher.sort('ur', planets)` on the list in the first example, "Uranus" will still be sorted first since the `startsWith` function is applied first,
 but then "Saturn" will be sorted before "Mercury" because "ur" constitutes a larger part of the value.
 
-# Sorting objects
+## Sorting objects
 `StringMatchSort` is actually just an extension of the `MatchSort` class, which can be used with lists of any type.
 If the list of things to sort is a list of objects, and the words to sort by addressed by a certain property of those objects,
 then the `onProperty` function of the `StringMatchSort` class may be used to return a `MatchSort` object that sorts the objects accordingly.
@@ -135,7 +141,7 @@ const searchTerm = 'sa';
 const sortedData = generalTextMatcher.onProperty('name').sort(searchTerm, planets);
 ```
 
-# Sorting by keyword lists
+## Sorting by keyword lists
 Sometimes, it is necessary to sort by a list of keywords, rather than a single search term.
 Therefore, the sort objects also have an `onList` method that returns a `MatchSort` object that sorts by the given list of keywords.
 The ranking will then be made by the best matching keyword of each item, and only items where none of the keywords match the filter will be filtered out.
@@ -160,7 +166,7 @@ const searchTerm = 'sa';
 const sortedData = generalTextMatcher.onList().sort(searchTerm, planets);
 ```
 
-# Chaining `MatchSort` objects
+## Chaining `MatchSort` objects
 Both of the previous examples may be combined to a MatchSort object that sorts objects like this:
 
 ```typescript
@@ -193,13 +199,13 @@ const sortedData = generalTextMatcher
   .sort(searchTerm, planets);
 ```
 
-# Caching
+## Caching
 This package is built for search interfaces. It is optimized for updating the result list as the user types.
 Therefore, the last search result is cached, and as long as the search term starts with the previous search term,
 the searching will only be performed on the previous result list.
 In consequence, items that are filtered out, will not be included in the next search, unless the search term is shortened or completely changed.
 
-# `StringMatchSort` vs. `MatchSort<string>`
+## `StringMatchSort` vs. `MatchSort<string>`
 Although `StringMatchSort` is simply an extension of `MatchSort<string>`,
 the already mentioned string transformation features are only available on `StringMatchSort`.
 When using the `StringMatchSort.onProperty` function, these features are preserved, but they are not available on `MatchSort` by default.
