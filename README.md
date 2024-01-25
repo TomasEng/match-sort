@@ -11,15 +11,17 @@ npm install match-sort
 ## Examples
 
 ### On a website
-See [the Codesandbox example](https://codesandbox.io/p/devbox/match-sort-demo-829xm4?embed=1&file=%2Fsrc%2Fsort.ts%3A7%2C1)
-for a lightweight example of how this package can be implemented on an input field on a website.
+Matchsort provides sorting functionality only - how to implement it graphically on a website is up to you.
+Most likely you will want to use it together with autocomplete tools from some UI library, like [Floating UI](https://floating-ui.com/).
+Here are some examples on Codesandbox:
+- [With Floating UI](https://codesandbox.io/p/devbox/qp88qg?file=%2Fsrc%2FApp.tsx%3A99%2C3)
+- [Simple list without any external tools](https://codesandbox.io/p/devbox/match-sort-demo-829xm4?embed=1&file=%2Fsrc%2Fsort.ts%3A7%2C1)
 
 ### Simple example
 The fastest way to get started is by importing the ready-to-use `generalTextMatcher` object:
 
 ```js
 import {generalTextMatcher} from 'match-sort';
-import {data} from './data';
 
 const planets = [
   'Mercury',
